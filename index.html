@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apache Demo Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f4f4f4;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    p {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Apache Server!</h1>
+    <p><strong>Server Hostname:</strong> <span id="hostname"></span></p>
+    <p><strong>Page Loaded At:</strong> <span id="loadtime"></span></p>
+    <p><strong>Your IP Address:</strong> <span id="ip"></span> (via external service)</p>
+  </div>
+
+  <script>
+    // Show browser-side hostname and load time
+    document.getElementById("hostname").textContent = window.location.hostname;
+    document.getElementById("loadtime").textContent = new Date().toLocaleString();
+
+    // Get public IP address using external API
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("ip").textContent = data.ip;
+      })
+      .catch(() => {
+        document.getElementById("ip").textContent = "Could not retrieve";
+      });
+  </script>
+</body>
+</html>
